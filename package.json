@@ -1,0 +1,35 @@
+{
+  "name": "iFeed",
+  "version": "0.0.1",
+  "description": "News feed implemented using ReactJS",
+  "main": "src/js/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stas-kh/news-feed-react.git"
+  },
+  "keywords": [
+    "news",
+    "feed",
+    "js",
+    "javascript",
+    "react"
+  ],
+  "author": "StasKh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stas-kh/news-feed-react/issues"
+  },
+  "homepage": "https://github.com/stas-kh/news-feed-react",
+  "devDependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1",
+    "webpack": "^1.13.1"
+  }
+}

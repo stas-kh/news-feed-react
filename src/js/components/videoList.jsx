@@ -1,16 +1,16 @@
 import React from 'react';
-import {VideoPlayer} from "./videoPlayer";
+import {VideoPost} from "./videoPost";
 
 export class VideoList extends React.Component {
-	constructor() {
-		super();
-		this.videoWidth = 500;
+	constructor(props) {
+		super(props);
+		this.videoWidth = 700;
 	}
 	render() {
 		return (
-			<div>
+			<div className="feed-container">
 				{this.props.source.map((video, index) => {
-					return <VideoPlayer src={video.link} width={this.videoWidth} key={index}/>
+					return <VideoPost src={video.link} width={this.videoWidth} description={video.description} postTime={video.postTime} key={index}/>
 				})}
 			</div>
 		)

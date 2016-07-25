@@ -13,7 +13,7 @@ body, html {
 	font-family: 'Open Sans', sans-serif;
 }
 
-.page-wrapper {
+#root {
 	background: #fcfcfc;
 	min-height: 100%;
 	overflow: auto;
@@ -114,4 +114,54 @@ body, html {
 
 .feed-container {
 	margin: 20px 0;
+}
+
+.video-container {
+	background: white;
+	padding: 20px 0 -5px;
+	margin: 40px 0;
+	border: 1px solid silver;
+	box-shadow: 0 0 20px 13px #f8f8f8;
+}
+
+.video-title {
+	margin: 20px;
+	font-weight: 500;
+}
+
+.video-footer {
+	overflow: hidden;
+	padding: 10px;
+}
+
+.left-video-description, .right-video-description {
+	height: 30px;
+}
+
+.left-video-description {
+	float: left;
+	line-height: 30px;
+	color: #989898;
+	font-weight: 300;
+}
+
+.right-video-description {
+	float: right;
+	width: 30px;
+}
+
+.right-video-description > img {
+	max-width: 100%;
+	cursor: pointer;
+	transition: 0.3s transform ease-out, 0.5s opacity ease-out;
+	opacity: 0.7;
+}
+
+.right-video-description > img:hover {
+	transform: rotate(-360deg);
+	opacity: 1;
+}
+
+.right-video-description > img:active {
+	max-width: 90%;
 }

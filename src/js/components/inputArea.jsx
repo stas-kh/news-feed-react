@@ -1,39 +1,52 @@
 import React from "react";
+import Button from "./shared/button";
 
 export class InputArea extends React.Component {
-	constructor() {
-		super();
-		this.maxContentLength = 140;
+	constructor(props) {
+		super(props);
+
+		this.MAX_CONTENT_LENGTH = 140;
+
 		this.state = {
-			content: ""
+			content: "",
+			remainingSymbols: this.MAX_CONTENT_LENGTH
 		};
+
+		this.onContentChanged = this.onContentChanged.bind(this);
+		this.addPost = this.addPost.bind(this);
 	}
 	addPost() {
 		console.log("Bind click");
 	}
 	onContentChanged(event) {
-		if (this.checkRemainingSymbols(event.target.value) >= 0) {
+		let newValue = event.target.value,
+			remainingSymbols = this.checkRemainingSymbols(newValue);
+
+		if (remainingSymbols >= 0) {
 			this.setState({
-				content: event.target.value
+				content: newValue,
+				remainingSymbols: remainingSymbols
 			});
 		} else {
 			event.preventDefault();
 		}
 	}
 	checkRemainingSymbols(content = this.state.content) {
-		return this.maxContentLength - content.length;
+		return this.MAX_CONTENT_LENGTH - content.length;
 	}
 	render() {
 		return (
 			<div className="input-area">
 				<div className="textarea-wrapper">
-					<textarea onChange={this.onContentChanged.bind(this)} value={this.state.content} name="feed-content"
-					          id="feed-content" rows="5" placeholder="Tell us about your life"/>
-					<div className="symbols-counter">{this.checkRemainingSymbols()}</div>
+					<textarea onChange={this.onContentChanged} 
+					          value={this.state.content} 
+					          name="feed-content"
+					          id="feed-content" 
+					          rows="5" 
+					          placeholder="Tell us about your life"/>
+					<div className="symbols-counter">{this.state.remainingSymbols}</div>
 				</div>
-				<div className="button-wrapper">
-					<button className="btn" onClick={this.addPost.bind(this)}>Click me again</button>
-				</div>
+				<Button action={this.addPost}/>
 			</div>
 		)
 	}

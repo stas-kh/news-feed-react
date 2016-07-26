@@ -1,22 +1,50 @@
 import React from "react";
 import Button from "./shared/button";
+import Post from "./global/post";
+import LSWorker from "./global/LSWorker";
+
+const maxContentLength = 140;
+
+const initialState = {
+	content: "",
+	remainingSymbols: maxContentLength
+};
 
 export class InputArea extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.MAX_CONTENT_LENGTH = 140;
+		this.URI_PATTERN = /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/ig;
 
-		this.state = {
-			content: "",
-			remainingSymbols: this.MAX_CONTENT_LENGTH
-		};
+		this.state = initialState;
 
 		this.onContentChanged = this.onContentChanged.bind(this);
 		this.addPost = this.addPost.bind(this);
 	}
+	reset() {
+		this.setState(initialState);
+	}
 	addPost() {
-		console.log("Bind click");
+		let postData = this.generatePostData(),
+			newPost = new Post(postData.content, postData.links);
+
+		LSWorker.addNewPost(newPost);
+
+		this.reset();
+	}
+	generatePostData() {
+		let links = this.state.content.match(this.URI_PATTERN);
+		
+		if (Array.isArray(links)) {
+			links = links[0];
+		} else {
+			links = null;
+		}
+
+		return {
+			links: links,
+			content: this.state.content.replace(this.URI_PATTERN, "").trim()
+		};
 	}
 	onContentChanged(event) {
 		let newValue = event.target.value,
@@ -32,7 +60,7 @@ export class InputArea extends React.Component {
 		}
 	}
 	checkRemainingSymbols(content = this.state.content) {
-		return this.MAX_CONTENT_LENGTH - content.length;
+		return maxContentLength - content.length;
 	}
 	render() {
 		return (

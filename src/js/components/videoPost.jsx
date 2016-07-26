@@ -1,4 +1,5 @@
 import React from 'react';
+import {VideoFooter} from "./videoFooter";
 
 export class VideoPost extends React.Component {
 	constructor(props) {
@@ -12,12 +13,15 @@ export class VideoPost extends React.Component {
 	}
 	getVideoID() {
 		let videoID = '',
+			url = null;
+		if (this.props.src !== null) {
 			url = this.props.src.replace(/(>|<)/gi, '').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
-		if (url[2] !== undefined) {
-			videoID = url[2].split(/[^0-9a-z_\-]/i);
-			videoID = videoID[0];
-		} else {
-			videoID = url;
+			if (url[2] !== undefined) {
+				videoID = url[2].split(/[^0-9a-z_\-]/i);
+				videoID = videoID[0];
+			} else {
+				videoID = url;
+			}
 		}
 		return videoID;
 	}
@@ -35,14 +39,7 @@ export class VideoPost extends React.Component {
 					frameBorder="0" 
 			        allowFullScreen>
 				</iframe>
-				<footer className="video-footer">
-					<section className="left-video-description">
-						Posted: {this.postTime}
-					</section>
-					<section className="right-video-description">
-						<img src="src/assets/img/like.png"/>
-					</section>
-				</footer>
+				<VideoFooter postTime={this.postTime}/>
 			</section>
 		)
 	}

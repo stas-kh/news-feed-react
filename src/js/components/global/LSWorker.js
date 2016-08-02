@@ -15,15 +15,9 @@ export default class LSWorker {
 			localStorage.setItem(postsSection, this.initMockData());
 		}
 
-		return this.sortPosts(JSON.parse(localStorage.getItem(postsSection)));
+		return JSON.parse(localStorage.getItem(postsSection));
 	}
 	
-	static sortPosts(postsList) {
-		return postsList.sort((a, b) => {
-			return b["postTime"] - a["postTime"];
-		});
-	}
-
 	static initMockData() {
 		let videosMock = [{
 			description: "Excelent expirience in Pokemon Go",

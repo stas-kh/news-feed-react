@@ -4,6 +4,8 @@ import Post from "./global/post";
 import LSWorker from "./global/LSWorker";
 import {Thumbnail} from "./thumbnail";
 import VideoData from "./global/videoData";
+import {connect} from "react-redux";
+import {addPost} from "../actions/index";
 
 const maxContentLength = 140;
 
@@ -12,7 +14,7 @@ const initialState = {
 	remainingSymbols: maxContentLength
 };
 
-export class InputArea extends React.Component {
+class InputArea extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -30,7 +32,8 @@ export class InputArea extends React.Component {
 			newPost = new Post(postData.content, postData.links);
 
 		LSWorker.addNewPost(newPost);
-
+		this.props.addPost(newPost);
+		
 		this.reset();
 	}
 	generatePostData() {
@@ -79,3 +82,22 @@ export class InputArea extends React.Component {
 		)
 	}
 }
+
+const mapStateToProps = (state, ownProps) => {
+	return {
+		
+	}
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		addPost: function (newPost) {
+			console.log("THIS FUNCTION IS CALLED");
+			return dispatch(addPost(newPost));
+		}
+	}
+};
+
+InputArea = connect(mapStateToProps, mapDispatchToProps)(InputArea);
+
+export {InputArea};

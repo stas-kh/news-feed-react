@@ -1,6 +1,15 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import {render} from "react-dom";
+import {Provider} from "react-redux";
+import {createStore} from "redux";
+import iFeedApp from "./reducers";
 import Root from "./components/root";
-import LSWorker from "./components/global/LSWorker";
 
-ReactDOM.render(<Root videosList={LSWorker.getPosts()}/>, document.querySelector("#root"));
+let store = createStore(iFeedApp);
+
+render(
+	<Provider store={store}>
+		<Root />
+	</Provider>, 
+	document.querySelector("#root")
+);

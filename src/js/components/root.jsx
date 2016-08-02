@@ -2,8 +2,9 @@ import React from "react";
 import {Header} from "./header";
 import {InputArea} from "./inputArea";
 import {VideoList} from "./videoList";
+import {connect} from 'react-redux'
 
-export default class Root extends React.Component {
+class Root extends React.Component {
 	render() {
 		return (
 			<section className="page-wrapper">
@@ -17,3 +18,12 @@ export default class Root extends React.Component {
 		)
 	}
 }
+
+const mapStateToProps = (state) => {
+	let posts = state.posts.sort((a, b) => b["postTime"] - a["postTime"]);
+	return {
+		videosList: posts
+	}
+};
+
+export default connect(mapStateToProps)(Root);

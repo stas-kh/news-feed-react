@@ -1,44 +1,37 @@
 import React from 'react';
 import {VideoFooter} from "./videoFooter";
+import VideoData from "./global/videoData";
 
 export class VideoPost extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.postTime = new Date(this.props.postTime).toLocaleString("en-US");
-	}
-	createEmbedVideoLink() {
-		const LINK_PREFIX = "https://www.youtube.com/embed/";
-		return LINK_PREFIX + this.getVideoID();
-	}
-	getVideoID() {
-		let videoID = '',
-			url = null;
-		if (this.props.src !== null) {
-			url = this.props.src.replace(/(>|<)/gi, '').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
-			if (url[2] !== undefined) {
-				videoID = url[2].split(/[^0-9a-z_\-]/i);
-				videoID = videoID[0];
-			} else {
-				videoID = url;
-			}
-		}
-		return videoID;
+		this.videoId = VideoData.getVideoID(this.props.src);
 	}
 	calcVideoHeight() {
 		return ((this.props.width * 9) / 16);
 	}
 	render() {
+		let iFrame = "",
+			postClass = "video-container",
+			videoSource = null;
+		if (this.videoId !== "") {
+			videoSource = VideoData.createEmbedVideoLink(this.videoId);
+			iFrame = <iframe
+						width={this.props.width}
+						height={this.calcVideoHeight()}
+						src={videoSource}
+						frameBorder="0"
+						allowFullScreen>
+					</iframe>;
+		} else {
+			postClass += " left-aligned";
+		}
 		return (
-			<section className="video-container">
+			<section className={postClass}>
 				<h1 className="video-title">{this.props.description}</h1>
-				<iframe 
-					width={this.props.width}
-					height={this.calcVideoHeight()}
-					src={this.createEmbedVideoLink()}
-					frameBorder="0" 
-			        allowFullScreen>
-				</iframe>
+				{iFrame}
 				<VideoFooter postTime={this.postTime}/>
 			</section>
 		)

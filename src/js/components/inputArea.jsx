@@ -2,6 +2,8 @@ import React from "react";
 import Button from "./shared/button";
 import Post from "./global/post";
 import LSWorker from "./global/LSWorker";
+import {Thumbnail} from "./thumbnail";
+import VideoData from "./global/videoData";
 
 const maxContentLength = 140;
 
@@ -14,13 +16,12 @@ export class InputArea extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.URI_PATTERN = /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/ig;
-
 		this.state = initialState;
 
 		this.onContentChanged = this.onContentChanged.bind(this);
 		this.addPost = this.addPost.bind(this);
 	}
+
 	reset() {
 		this.setState(initialState);
 	}
@@ -33,17 +34,9 @@ export class InputArea extends React.Component {
 		this.reset();
 	}
 	generatePostData() {
-		let links = this.state.content.match(this.URI_PATTERN);
-		
-		if (Array.isArray(links)) {
-			links = links[0];
-		} else {
-			links = null;
-		}
-
 		return {
-			links: links,
-			content: this.state.content.replace(this.URI_PATTERN, "").trim()
+			links: VideoData.getVideoLink(this.state.content),
+			content: this.state.content.replace(VideoData.URI_PATTERN, "").trim()
 		};
 	}
 	onContentChanged(event) {
@@ -63,9 +56,16 @@ export class InputArea extends React.Component {
 		return maxContentLength - content.length;
 	}
 	render() {
+		var thumb = "",
+			videoLink = VideoData.getVideoID(this.state.content);
+		if (videoLink !== "") {
+			console.log(videoLink);
+			thumb = <Thumbnail thumbSrc={videoLink}/>
+		}
 		return (
 			<div className="input-area">
 				<div className="textarea-wrapper">
+					{thumb}
 					<textarea onChange={this.onContentChanged} 
 					          value={this.state.content} 
 					          name="feed-content"

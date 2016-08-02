@@ -15,22 +15,28 @@ export default class LSWorker {
 			localStorage.setItem(postsSection, this.initMockData());
 		}
 
-		return JSON.parse(localStorage.getItem(postsSection));
+		return this.sortPosts(JSON.parse(localStorage.getItem(postsSection)));
+	}
+	
+	static sortPosts(postsList) {
+		return postsList.sort((a, b) => {
+			return b["postTime"] - a["postTime"];
+		});
 	}
 
 	static initMockData() {
 		let videosMock = [{
-			description: "Here is my test video",
+			description: "Excelent expirience in Pokemon Go",
 			link: "https://www.youtube.com/embed/WKmmM2ItjnY",
-			postTime: 1469439028299
+			postTime: 1469439029999
 		}, {
-			description: "Here is my test video 2",
+			description: "Let's go to Europe, guys",
 			link: "https://www.youtube.com/watch?v=aLRBrlQwS4A",
-			postTime: 1469439028299
+			postTime: 1469439022222
 		}, {
-			description: "Here is my test video 3",
+			description: "Amazing song by Katy Perry",
 			link: "https://www.youtube.com/watch?v=lFIIMEe2Ht0",
-			postTime: 1469439028299
+			postTime: 1469439011111
 		}];
 
 		return JSON.stringify(videosMock);

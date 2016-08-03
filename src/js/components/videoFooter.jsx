@@ -6,6 +6,7 @@ export class VideoFooter extends React.Component {
 
 		this.imgSrc = "src/assets/img/like.png";
 	}
+
 	render() {
 		return (
 			<footer className="video-footer">

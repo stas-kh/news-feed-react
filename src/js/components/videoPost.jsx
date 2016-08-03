@@ -9,9 +9,11 @@ export class VideoPost extends React.Component {
 		this.postTime = new Date(this.props.postTime).toLocaleString("en-US");
 		this.videoId = VideoData.getVideoID(this.props.src);
 	}
+
 	calcVideoHeight() {
 		return ((this.props.width * 9) / 16);
 	}
+
 	render() {
 		let iFrame = "",
 			postClass = "video-container",
@@ -19,12 +21,12 @@ export class VideoPost extends React.Component {
 		if (this.videoId !== "") {
 			videoSource = VideoData.createEmbedVideoLink(this.videoId);
 			iFrame = <iframe
-						width={this.props.width}
-						height={this.calcVideoHeight()}
-						src={videoSource}
-						frameBorder="0"
-						allowFullScreen>
-					</iframe>;
+				width={this.props.width}
+				height={this.calcVideoHeight()}
+				src={videoSource}
+				frameBorder="0"
+				allowFullScreen>
+			</iframe>;
 		} else {
 			postClass += " left-aligned";
 		}

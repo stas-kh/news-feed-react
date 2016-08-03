@@ -5,11 +5,9 @@ import {createStore} from "redux";
 import iFeedApp from "./reducers";
 import Root from "./components/root";
 
-let store = createStore(iFeedApp);
-
 render(
-	<Provider store={store}>
+	<Provider store={createStore(iFeedApp)}>
 		<Root />
-	</Provider>, 
+	</Provider>,
 	document.querySelector("#root")
 );

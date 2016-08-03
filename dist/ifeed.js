@@ -66,11 +66,9 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var store = (0, _redux.createStore)(_reducers2.default);
-	
 	(0, _reactDom.render)(_react2.default.createElement(
 		_reactRedux.Provider,
-		{ store: store },
+		{ store: (0, _redux.createStore)(_reducers2.default) },
 		_react2.default.createElement(_root2.default, null)
 	), document.querySelector("#root"));
 
@@ -23000,7 +22998,7 @@
 	
 	var _inputArea = __webpack_require__(205);
 	
-	var _videoList = __webpack_require__(210);
+	var _videoList = __webpack_require__(211);
 	
 	var _reactRedux = __webpack_require__(172);
 	
@@ -23149,7 +23147,7 @@
 	
 	var _reactRedux = __webpack_require__(172);
 	
-	var _index = __webpack_require__(213);
+	var _index = __webpack_require__(210);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -23243,12 +23241,7 @@
 						"div",
 						{ className: "textarea-wrapper" },
 						thumb,
-						_react2.default.createElement("textarea", { onChange: this.onContentChanged,
-							value: this.state.content,
-							name: "feed-content",
-							id: "feed-content",
-							rows: "5",
-							placeholder: "Tell us about your life" }),
+						_react2.default.createElement("textarea", { onChange: this.onContentChanged, value: this.state.content, name: "feed-content", id: "feed-content", rows: "5", placeholder: "Tell us about your life" }),
 						_react2.default.createElement(
 							"div",
 							{ className: "symbols-counter" },
@@ -23263,20 +23256,15 @@
 		return InputArea;
 	}(_react2.default.Component);
 	
-	var mapStateToProps = function mapStateToProps(state, ownProps) {
-		return {};
-	};
-	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 		return {
 			addPost: function addPost(newPost) {
-				console.log("THIS FUNCTION IS CALLED");
 				return dispatch((0, _index.addPost)(newPost));
 			}
 		};
 	};
 	
-	exports.InputArea = InputArea = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(InputArea);
+	exports.InputArea = InputArea = (0, _reactRedux.connect)(null, mapDispatchToProps)(InputArea);
 	
 	exports.InputArea = InputArea;
 
@@ -23486,6 +23474,26 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	exports.addPost = undefined;
+	
+	var _actionTypes = __webpack_require__(201);
+	
+	var addPost = exports.addPost = function addPost(newPost) {
+		return {
+			type: _actionTypes.ADD_POST,
+			newPost: newPost
+		};
+	};
+
+/***/ },
+/* 211 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.VideoList = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -23494,7 +23502,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _videoPost = __webpack_require__(211);
+	var _videoPost = __webpack_require__(212);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -23525,7 +23533,8 @@
 					"div",
 					{ className: "feed-container" },
 					this.props.source.map(function (video, index) {
-						return _react2.default.createElement(_videoPost.VideoPost, { src: video.link, width: _this2.videoWidth, description: video.description, postTime: video.postTime, key: video.postTime });
+						return _react2.default.createElement(_videoPost.VideoPost, { src: video.link, width: _this2.videoWidth, description: video.description,
+							postTime: video.postTime, key: video.postTime });
 					})
 				);
 			}
@@ -23535,7 +23544,7 @@
 	}(_react2.default.Component);
 
 /***/ },
-/* 211 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -23551,7 +23560,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _videoFooter = __webpack_require__(212);
+	var _videoFooter = __webpack_require__(213);
 	
 	var _videoData = __webpack_require__(209);
 	
@@ -23618,7 +23627,7 @@
 	}(_react2.default.Component);
 
 /***/ },
-/* 212 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -23678,26 +23687,6 @@
 		return VideoFooter;
 	}(_react2.default.Component);
 
-/***/ },
-/* 213 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.addPost = undefined;
-	
-	var _actionTypes = __webpack_require__(201);
-	
-	var addPost = exports.addPost = function addPost(newPost) {
-		return {
-			type: _actionTypes.ADD_POST,
-			newPost: newPost
-		};
-	};
-
 /***/ }
 /******/ ]);
-//# sourceMappingURL=ifeed.min.js.map
+//# sourceMappingURL=ifeed.js.map

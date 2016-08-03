@@ -1,7 +1,6 @@
 const postsSection = "iFeedVideos";
 
 export default class LSWorker {
-
 	static addNewPost(newPost) {
 		let posts = this.getPosts() || [];
 		posts.push(newPost);
@@ -17,7 +16,7 @@ export default class LSWorker {
 
 		return JSON.parse(localStorage.getItem(postsSection));
 	}
-	
+
 	static initMockData() {
 		let videosMock = [{
 			description: "Excelent expirience in Pokemon Go",

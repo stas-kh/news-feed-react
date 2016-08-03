@@ -1,8 +1,8 @@
 module.exports = {
 	entry: __dirname + "/src/js/index.jsx",
 	output: {
-		path: __dirname + "/build",
-		filename: "ifeed.min.js"
+		path: __dirname + "/dist",
+		filename: "ifeed.js"
 	},
 	devtool: 'source-map',
 	module: {

@@ -27,21 +27,24 @@ class InputArea extends React.Component {
 	reset() {
 		this.setState(initialState);
 	}
+
 	addPost() {
 		let postData = this.generatePostData(),
 			newPost = new Post(postData.content, postData.links);
 
 		LSWorker.addNewPost(newPost);
 		this.props.addPost(newPost);
-		
+
 		this.reset();
 	}
+
 	generatePostData() {
 		return {
 			links: VideoData.getVideoLink(this.state.content),
 			content: this.state.content.replace(VideoData.URI_PATTERN, "").trim()
 		};
 	}
+
 	onContentChanged(event) {
 		let newValue = event.target.value,
 			remainingSymbols = this.checkRemainingSymbols(newValue);
@@ -55,11 +58,13 @@ class InputArea extends React.Component {
 			event.preventDefault();
 		}
 	}
+
 	checkRemainingSymbols(content = this.state.content) {
 		return maxContentLength - content.length;
 	}
+
 	render() {
-		var thumb = "",
+		let thumb = "",
 			videoLink = VideoData.getVideoID(this.state.content);
 		if (videoLink !== "") {
 			console.log(videoLink);
@@ -69,12 +74,7 @@ class InputArea extends React.Component {
 			<div className="input-area">
 				<div className="textarea-wrapper">
 					{thumb}
-					<textarea onChange={this.onContentChanged} 
-					          value={this.state.content} 
-					          name="feed-content"
-					          id="feed-content" 
-					          rows="5" 
-					          placeholder="Tell us about your life"/>
+					<textarea onChange={this.onContentChanged} value={this.state.content} name="feed-content" id="feed-content" rows="5" placeholder="Tell us about your life"/>
 					<div className="symbols-counter">{this.state.remainingSymbols}</div>
 				</div>
 				<Button action={this.addPost}/>
@@ -83,21 +83,14 @@ class InputArea extends React.Component {
 	}
 }
 
-const mapStateToProps = (state, ownProps) => {
-	return {
-		
-	}
-};
-
 const mapDispatchToProps = (dispatch) => {
 	return {
 		addPost: function (newPost) {
-			console.log("THIS FUNCTION IS CALLED");
 			return dispatch(addPost(newPost));
 		}
 	}
 };
 
-InputArea = connect(mapStateToProps, mapDispatchToProps)(InputArea);
+InputArea = connect(null, mapDispatchToProps)(InputArea);
 
 export {InputArea};

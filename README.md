@@ -1,7 +1,7 @@
 # news-feed-react
 News feed project which uses React and Redux
 
-#Project features
+# Project features
 * Application that stores videos feed in permanent storage
 * User is able to add videos from youtube using any type of youtube link
 * Input field is limited to 140 symbols (as in twitter)
